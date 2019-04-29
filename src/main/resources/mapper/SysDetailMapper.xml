@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.liwei08.mapper.SysDetailMapper">
+  <resultMap id="BaseResultMap" type="cn.liwei08.entity.SysDetail">
+    <id column="detail_no" jdbcType="BIGINT" property="detailNo" />
+    <result column="hospital_info" jdbcType="INTEGER" property="hospitalInfo" />
+    <result column="hospital_room_info" jdbcType="INTEGER" property="hospitalRoomInfo" />
+    <result column="level_info" jdbcType="INTEGER" property="levelInfo" />
+    <result column="detail_type_info" jdbcType="INTEGER" property="detailTypeInfo" />
+    <result column="detail_user_info" jdbcType="INTEGER" property="detailUserInfo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.liwei08.entity.SysDetail">
+    <result column="detail_info" jdbcType="LONGVARCHAR" property="detailInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    detail_no, hospital_info, hospital_room_info, level_info, detail_type_info, detail_user_info, 
+    create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    detail_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_detail
+    where detail_no = #{detailNo,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_detail
+    where detail_no = #{detailNo,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.liwei08.entity.SysDetail">
+    insert into sys_detail (detail_no, hospital_info, hospital_room_info, 
+      level_info, detail_type_info, detail_user_info, 
+      create_time, update_time, detail_info
+      )
+    values (#{detailNo,jdbcType=BIGINT}, #{hospitalInfo,jdbcType=INTEGER}, #{hospitalRoomInfo,jdbcType=INTEGER}, 
+      #{levelInfo,jdbcType=INTEGER}, #{detailTypeInfo,jdbcType=INTEGER}, #{detailUserInfo,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{detailInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.liwei08.entity.SysDetail">
+    insert into sys_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="detailNo != null">
+        detail_no,
+      </if>
+      <if test="hospitalInfo != null">
+        hospital_info,
+      </if>
+      <if test="hospitalRoomInfo != null">
+        hospital_room_info,
+      </if>
+      <if test="levelInfo != null">
+        level_info,
+      </if>
+      <if test="detailTypeInfo != null">
+        detail_type_info,
+      </if>
+      <if test="detailUserInfo != null">
+        detail_user_info,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="detailInfo != null">
+        detail_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="detailNo != null">
+        #{detailNo,jdbcType=BIGINT},
+      </if>
+      <if test="hospitalInfo != null">
+        #{hospitalInfo,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalRoomInfo != null">
+        #{hospitalRoomInfo,jdbcType=INTEGER},
+      </if>
+      <if test="levelInfo != null">
+        #{levelInfo,jdbcType=INTEGER},
+      </if>
+      <if test="detailTypeInfo != null">
+        #{detailTypeInfo,jdbcType=INTEGER},
+      </if>
+      <if test="detailUserInfo != null">
+        #{detailUserInfo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailInfo != null">
+        #{detailInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.liwei08.entity.SysDetail">
+    update sys_detail
+    <set>
+      <if test="hospitalInfo != null">
+        hospital_info = #{hospitalInfo,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalRoomInfo != null">
+        hospital_room_info = #{hospitalRoomInfo,jdbcType=INTEGER},
+      </if>
+      <if test="levelInfo != null">
+        level_info = #{levelInfo,jdbcType=INTEGER},
+      </if>
+      <if test="detailTypeInfo != null">
+        detail_type_info = #{detailTypeInfo,jdbcType=INTEGER},
+      </if>
+      <if test="detailUserInfo != null">
+        detail_user_info = #{detailUserInfo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailInfo != null">
+        detail_info = #{detailInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where detail_no = #{detailNo,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.liwei08.entity.SysDetail">
+    update sys_detail
+    set hospital_info = #{hospitalInfo,jdbcType=INTEGER},
+      hospital_room_info = #{hospitalRoomInfo,jdbcType=INTEGER},
+      level_info = #{levelInfo,jdbcType=INTEGER},
+      detail_type_info = #{detailTypeInfo,jdbcType=INTEGER},
+      detail_user_info = #{detailUserInfo,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      detail_info = #{detailInfo,jdbcType=LONGVARCHAR}
+    where detail_no = #{detailNo,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.liwei08.entity.SysDetail">
+    update sys_detail
+    set hospital_info = #{hospitalInfo,jdbcType=INTEGER},
+      hospital_room_info = #{hospitalRoomInfo,jdbcType=INTEGER},
+      level_info = #{levelInfo,jdbcType=INTEGER},
+      detail_type_info = #{detailTypeInfo,jdbcType=INTEGER},
+      detail_user_info = #{detailUserInfo,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where detail_no = #{detailNo,jdbcType=BIGINT}
+  </update>
+</mapper>

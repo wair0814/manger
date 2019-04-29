@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.liwei08.mapper.HospitalModularMapper">
+  <resultMap id="BaseResultMap" type="cn.liwei08.entity.HospitalModular">
+    <id column="modular_id" jdbcType="INTEGER" property="modularId" />
+    <result column="modular_name" jdbcType="VARCHAR" property="modularName" />
+    <result column="modular_type_no" jdbcType="INTEGER" property="modularTypeNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    modular_id, modular_name, modular_type_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hospital_modular
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hospital_modular
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.liwei08.entity.HospitalModular">
+    insert into hospital_modular (modular_id, modular_name, modular_type_no
+      )
+    values (#{modularId,jdbcType=INTEGER}, #{modularName,jdbcType=VARCHAR}, #{modularTypeNo,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.liwei08.entity.HospitalModular">
+    insert into hospital_modular
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modularId != null">
+        modular_id,
+      </if>
+      <if test="modularName != null">
+        modular_name,
+      </if>
+      <if test="modularTypeNo != null">
+        modular_type_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modularId != null">
+        #{modularId,jdbcType=INTEGER},
+      </if>
+      <if test="modularName != null">
+        #{modularName,jdbcType=VARCHAR},
+      </if>
+      <if test="modularTypeNo != null">
+        #{modularTypeNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.liwei08.entity.HospitalModular">
+    update hospital_modular
+    <set>
+      <if test="modularName != null">
+        modular_name = #{modularName,jdbcType=VARCHAR},
+      </if>
+      <if test="modularTypeNo != null">
+        modular_type_no = #{modularTypeNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.liwei08.entity.HospitalModular">
+    update hospital_modular
+    set modular_name = #{modularName,jdbcType=VARCHAR},
+      modular_type_no = #{modularTypeNo,jdbcType=INTEGER}
+    where modular_id = #{modularId,jdbcType=INTEGER}
+  </update>
+</mapper>

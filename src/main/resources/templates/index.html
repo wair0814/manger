@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>欢迎访问</title>
+    <!--网站图标-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="/dist/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/dist/layer/theme/default/layer.css" rel="stylesheet">
+</head>
+<body>
+
+<!--首页导航栏-->
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
+    <div class="container-fluid">
+        <!--问候显示区-->
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a href="javascript:void(0)" id="showIp">正在加载数据......</a>
+            </li>
+        </ul>
+        <!--工具按钮显示区-->
+        <ul class="nav navbar-nav navbar-right" style="padding-right: 50px;">
+            <li>
+                <a href="javascript:void(0)" onclick="toUtils()">实用工具</a>
+                <script type="text/javascript">
+                    function toUtils() {
+                        window.location = "/tool_Index";
+                    }
+                </script>
+            </li>
+
+            <li>
+                <a href="javascript:void(0)" onclick="toLogin()">登录</a>
+                <script type="text/javascript">
+                    function toLogin() {
+                        window.location.href = "/static/user/login.html";
+                    }
+                </script>
+            </li>
+
+            <li>
+                <a href="javascript:void(0)" onclick="toReg()">注册</a>
+                <script type="text/javascript">
+                    function toReg() {
+                        window.location.href = "/pages/user/register.html";
+                    }
+                </script>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+    </div>
+    <div class="row">
+    </div>
+
+    <!--网易云歌单引入 -->
+    <!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+    <!--<iframe src="http://music.163.com/outchain/player?type=0&amp;id=34238509&amp;auto=1&amp;height=430"-->
+    <!--width="100%" height="450" frameborder="no" marginwidth="0" marginheight="0">-->
+    <!--</iframe>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--小黄人显示区-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<iframe src="/static/import/xhr.html" width="100%" height="600" frameborder="no" marginwidth="0"-->
+                    <!--marginheight="0">-->
+            <!--</iframe>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/dist/layer/layer.js"></script>
+<script>
+    // 网页就绪函数
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://www.mxnzp.com/api/ip/self",
+            type: "post",
+            dataType: "json",
+            data: {},
+            success: function (e) {
+                // console.log(e);
+                $("#showIp").empty().append("欢迎来自：" + e.data.province + e.data.city + "的网友");
+            }
+        })
+    });
+</script>
+</body>
+</html>

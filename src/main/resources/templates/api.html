@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>一言数据</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.2/css/mdui.min.css">
+
+</head>
+<body>
+	<div class="mdui-container">
+		<!-- 在所有设备上，每列都是 50% 宽度。 -->
+		<div class="mdui-row" style="margin-top: 10%">
+			<div class="mdui-col-xs-3"></div>
+			<div class="mdui-col-xs-3 mdui-col-sm-4">
+				<!--显示一言信息-->
+				一言数据类型： <select id="status" class=".mdui-select">
+					<option value="a">动画</option>
+					<option value="b">漫画</option>
+					<option value="c" selected="selected">游戏</option>
+					<option value="d">小说</option>
+					<option value="e">原创</option>
+					<option value="f">来自网络</option>
+					<option value="g">其他</option>
+				</select>
+			</div>
+			<div class="mdui-col-xs-3">
+				<input type="button" value="再来一句"
+					class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent"
+					onclick="refresh(cat)" /> <br>
+			</div>
+			<div class="mdui-col-xs-3"></div>
+		</div>
+
+		<div class="mdui-row">
+			<div class="mdui-col-xs-6"></div>
+		</div>
+
+		<p id="msg_info_detial">数据加载中。。。</p>
+		来自 ===> <span id="msg_info_from"></span>
+	</div>
+
+	<!--引入JS-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mdui/0.4.2/js/mdui.min.js"></script>
+
+	<script>
+		var cat = "c";
+		window.onload = function() {
+			getYiyanInfo(cat)
+		}
+
+		/**
+		 * 获取一言数据
+		 */
+		function getYiyanInfo(cat) {
+			$.ajax({
+				type : "get",
+				url : "/yiYan",
+				data : {
+					type : cat
+				},
+				dataType : 'json',
+				success : function(e) {
+					console.log(e);
+					$("#msg_info_detial").empty().append(e.hitokoto);
+					$("#msg_info_from").empty().append(e.from);
+				}
+			});
+		}
+
+		/**
+		 * 选中事件
+		 */
+		$("select#status").change(function() {
+			console.log($(this).val());
+			cat = $(this).val();
+			getYiyanInfo(cat);
+		});
+
+		/**
+		 * 刷新
+		 */
+		function refresh(cat) {
+			console.log(cat)
+			getYiyanInfo(cat)
+		}
+	</script>
+
+</body>
+</html>
