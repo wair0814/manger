@@ -95,5 +95,4 @@
             <appender-ref ref="RollingFileError"/>
         </root>
     </loggers>
-
 </configuration>

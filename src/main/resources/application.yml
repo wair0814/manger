@@ -1,6 +1,6 @@
 #默认端口配置
 server:
-  port: 8080
+  port: 9090
 
 #数据库连接配置
 spring:

@@ -16,19 +16,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.liwei08.util.HttpClientUtil;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 所有的API集中的Controlle
+ *
+ * @author wair0
+ * @date 2019-05-02 17:00
+ **/
 @RestController
 public class APIController {
     private Logger log = LoggerFactory.getLogger(APIController.class);
 
+    private final VideoApiService videoApiService;
+
     @Autowired
-    private VideoApiService videoApiService;
+    public APIController(VideoApiService videoApiService) {
+        this.videoApiService = videoApiService;
+    }
 
     /**
      * Cat，即类型。提交不同的参数代表不同的类别，具体： a Anime - 动画 b Comic – 漫画 c Game – 游戏 d Novel – 小说
      * e Myself – 原创 f Internet – 来自网络 g Other – 其他
      *
-     * @param type
-     * @return
+     * @param type 获取一言信息的格式
+     * @return 返回json字符串
      */
     @RequestMapping("/yiYan")
     @ResponseBody
@@ -44,6 +54,13 @@ public class APIController {
         return yiYanJson;
     }
 
+    /**
+     * 获取所有的视频解析接口__by其他网站
+     *
+     * @return 返回json字符串
+     * @author wair0
+     * @date 2019-05-02 17:01
+     **/
     @RequestMapping("/getAllVideosByJson")
     public String getAllVideosByJson() {
         final String baseUrl = "https://coding.net/u/Gold2River/p/NetRaw/git/raw/master/videoRule_541.json";
@@ -52,6 +69,13 @@ public class APIController {
         return jsonListAllFreeUrl;
     }
 
+    /**
+     * 获取所有的视频解析接口__by个人的
+     *
+     * @return java.lang.String
+     * @author wair0
+     * @date 2019-05-02 17:01
+     **/
     @RequestMapping("/getAllVideoApis")
     public String getAllVideoApis() {
         List<VideoApi> listVideoApi = videoApiService.listVideos();

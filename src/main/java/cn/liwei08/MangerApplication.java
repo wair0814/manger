@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = "cn.liwei08.mapper")
-public class SpringbootMybatisApplication {
+public class MangerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootMybatisApplication.class, args);
+        SpringApplication.run(MangerApplication.class, args);
     }
 }

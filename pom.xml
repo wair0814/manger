@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.liwei08</groupId>
-    <artifactId>manger-3</artifactId>
+    <artifactId>manger</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>manger-3</name>
+    <name>manger</name>
     <description>管理系统</description>
 
     <properties>
@@ -122,6 +122,7 @@
 
     </dependencies>
 
+    <!--springboot打包插件-->
     <build>
         <plugins>
             <plugin>
