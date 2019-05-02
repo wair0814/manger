@@ -45,6 +45,3 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   # pojo类所在包路径
   type-aliases-package: cn.liwei08.entity
-
-#logging:
-#  config: classpath:log4j.properties
