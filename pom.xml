@@ -73,11 +73,11 @@
         </dependency>
 
         <!-- thymeleaf模板引擎 -->
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.0.9.RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.thymeleaf</groupId>-->
+<!--            <artifactId>thymeleaf</artifactId>-->
+<!--            <version>3.0.9.RELEASE</version>-->
+<!--        </dependency>-->
 
         <!--引入thymeleaf的依赖 -->
         <dependency>

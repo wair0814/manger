@@ -79,4 +79,8 @@
       customer_createTime = #{customerCreatetime,jdbcType=TIMESTAMP}
     where customer_id = #{customerId,jdbcType=INTEGER}
   </update>
+  
+  <select id="listAllCustomerInfo" resultMap="BaseResultMap">
+    select * from customer_info
+  </select>
 </mapper>

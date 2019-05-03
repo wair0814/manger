@@ -15,16 +15,12 @@ import org.mybatis.generator.internal.DefaultShellCallback;
  * @date: 2019-04-15 20:38
  * Version : 1.0
  **/
-
-
 public class GeneratorSqlmap {
 
     public void generator() throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         // 指定配置文件
-//        D:\workspace\idea\manger - 3
-        // "D:\workspace\idea\manger - 3\src\main\resources\GeneratorMapper.xml"
         File configFile = new File("D:/workspace/idea/manger - 3/src/main/resources/GeneratorMapper.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);

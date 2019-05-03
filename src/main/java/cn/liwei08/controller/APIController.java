@@ -76,7 +76,7 @@ public class APIController {
      * @author wair0
      * @date 2019-05-02 17:01
      **/
-    @RequestMapping("/getAllVideoApis")
+    @RequestMapping("/")
     public String getAllVideoApis() {
         List<VideoApi> listVideoApi = videoApiService.listVideos();
         log.info("后台查到的数据为 ==>" + listVideoApi.toString());
