@@ -24,7 +24,10 @@ import java.util.Map;
 @Configuration
 public class DruidConfig {
 
-    // 将所有前缀为spring.datasource下的配置项都加载到DataSource中
+
+    /**
+     * 将所有前缀为spring.datasource下的配置项都加载到DataSource中
+     */
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
     public DataSource druidDataSource() {
@@ -34,7 +37,7 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean druidStatViewServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        Map<String, String> initParams = new HashMap<>();
+        Map<String, String> initParams = new HashMap<>(6);
         //　可配的属性都在 StatViewServlet 和其父类下
         initParams.put("loginUsername", "admin-druid");
         initParams.put("loginPassword", "111111");
@@ -45,7 +48,7 @@ public class DruidConfig {
     @Bean
     public FilterRegistrationBean druidWebStatFilter() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
-        Map<String, String> initParams = new HashMap<>();
+        Map<String, String> initParams = new HashMap<>(6);
         initParams.put("exclusions", "*.js,*.css,/druid/*");
         filterRegistrationBean.setInitParameters(initParams);
         filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));

@@ -5,7 +5,7 @@ package cn.liwei08.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -19,8 +19,8 @@ import java.util.UUID;
 public class Base64Util {
 
 
-    static String uuid;
-    static String cpwd;
+    private static String uuid;
+    private static String cpwd;
 
     /**
      * 生成UUID
@@ -36,13 +36,8 @@ public class Base64Util {
     Logger log =  LogManager.getLogger(Base64Util.class);
 //        if (userPwd != null) {
         final Base64.Encoder encoder = Base64.getEncoder();
-        try {
-            final byte[] textByte = userPwd.getBytes("UTF-8");
-            cpwd = encoder.encodeToString(textByte);
-        } catch (UnsupportedEncodingException e) {
-            log.error("出错了");
-            e.printStackTrace();
-        }
+        final byte[] textByte = userPwd.getBytes(StandardCharsets.UTF_8);
+        cpwd = encoder.encodeToString(textByte);
         StringBuilder userCpwd = new StringBuilder();
         userCpwd.append(cpwd);
         userCpwd.append(uuid);
@@ -64,16 +59,10 @@ public class Base64Util {
             String uCpwd = null;
             final Base64.Encoder encoder = Base64.getEncoder();
             final byte[] textByte;
-            try {
-                textByte = userPwd.getBytes("UTF-8");
-                uCpwd = encoder.encodeToString(textByte);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            textByte = userPwd.getBytes(StandardCharsets.UTF_8);
+            uCpwd = encoder.encodeToString(textByte);
             return uCpwd;
         }
-
-
     }
 
 }

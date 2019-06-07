@@ -2,7 +2,7 @@ package cn.liwei08.mapper;
 
 import cn.liwei08.entity.SysRoleUser;
 
-public interface sysRoleUserMapper {
+public interface SysRoleUserMapper {
     int deleteByPrimaryKey(Integer roleUserNo);
 
     int insert(SysRoleUser record);

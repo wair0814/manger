@@ -27,6 +27,4 @@ public class JsonUtil {
             e.printStackTrace();
         }
     }
-
-    
 }

@@ -81,6 +81,66 @@
   </update>
   
   <select id="listAllCustomerInfo" resultMap="BaseResultMap">
-    select * from customer_info
+    select customer_id,customer_name,customer_stopMark,customer_createTime,
+        (CASE customer_stopMark
+        WHEN '1' THEN '暂停维护'
+        WHEN '0' THEN' 维护中'
+        ELSE '未知'
+        END) AS customer_stopMark_item
+    from
+        customer_info
+    <if test="flag!=2">
+      WHERE customer_stopMark = #{flag}
+    </if>
   </select>
+
+  <!-- 修改医院信息 -->
+  <update id="updateCustomer">
+    UPDATE customer_info
+    <set>
+      <if test="customerName != null">customer_name=#{customerName}</if>
+      WHERE customer_id = #{customerId}
+    </set>
+  </update>
+
+
+  <!-- 添加医院信息 -->
+  <insert id="addCustomer" useGeneratedKeys="true" keyProperty="customer_id">
+    INSERT INTO customer_info
+    VALUES
+      (#{customerId},#{customerName},#{customerStopMark})
+  </insert>
+
+  <!-- 查询单个 -->
+  <select id="findOneByCustomerId" resultType="cn.liwei08.entity.CustomerInfo" parameterType="integer">
+    SELECT
+      customer_id,customer_name,customer_stopMark
+    FROM
+      customer_info
+    WHERE
+      customer_id =#{customerId}
+  </select>
+
+  <!--按照条件查询（是否处于维护状态来查询）  -->
+  <select id="countCustomer" parameterType="Integer" resultType="Integer">
+    SELECT count(customer_id) FROM hospital.customer_info
+    <if test="flag!=2">
+      WHERE customer_stopMark = #{flag}
+    </if>
+  </select>
+
+  <!--查找行数-->
+  <select id="countCustomerByName" parameterType="String" resultType="Integer">
+    SELECT
+      COUNT(customer_id)
+    FROM
+      customer_info
+    WHERE
+      customer_name = #{customerName};
+  </select>
+
+  <!-- deleteCustomer -->
+  <delete id="deleteCustomer">
+
+  </delete>
 </mapper>
