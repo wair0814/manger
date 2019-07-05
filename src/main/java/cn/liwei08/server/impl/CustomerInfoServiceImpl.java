@@ -3,9 +3,9 @@ package cn.liwei08.server.impl;
 import cn.liwei08.entity.CustomerInfo;
 import cn.liwei08.mapper.CustomerInfoMapper;
 import cn.liwei08.server.CustomerInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,23 +18,16 @@ import java.util.List;
  * Version : 1.0
  **/
 @Service
+@Slf4j
 public class CustomerInfoServiceImpl implements CustomerInfoService {
-    /**
-     *
-     */
-    private final
+    @Autowired
     CustomerInfoMapper customerInfoMapper;
-
-    private final Logger log = LoggerFactory.getLogger(CustomerInfoService.class);
-
-    public CustomerInfoServiceImpl(CustomerInfoMapper customerInfoMapper) {
-        this.customerInfoMapper = customerInfoMapper;
-    }
 
 
     @Override
     public int deleteByPrimaryKey(Integer customerId) {
-        return customerInfoMapper.deleteByPrimaryKey(customerId); }
+        return customerInfoMapper.deleteByPrimaryKey(customerId);
+    }
 
     @Override
     public int insert(CustomerInfo record) {
@@ -72,7 +65,9 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
      **/
     @Override
     public List<CustomerInfo> listAllCustomerInfo(int flag) {
-        return customerInfoMapper.listAllCustomerInfo(flag);
+        List<CustomerInfo> infos = customerInfoMapper.listAllCustomerInfo(flag);
+        log.info("--> Totle："+String.valueOf(infos.size()));
+        return infos;
     }
 
     @Override
@@ -87,7 +82,7 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
 
     @Override
     public void addCustomer(CustomerInfo customerInfo) {
-        log.debug(customerInfo.toString());
+        log.info(customerInfo.toString());
         // 非空判断 customerInfo == null || StringUtils.isBlank(customerInfo.getCustomerName())
         if (StringUtils.isBlank(customerInfo.getCustomerName())) {
             log.error("参数非法，为空");

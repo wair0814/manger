@@ -2,6 +2,7 @@ package cn.liwei08.mapper;
 
 import cn.liwei08.entity.CustomerInfo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @date: 2018-12-24 17:38
  * Version : 1.0
  **/
+@Repository
 public interface CustomerInfoMapper {
     /**
      * 通过ID删除一条数据

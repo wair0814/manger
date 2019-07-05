@@ -5,29 +5,84 @@ import cn.liwei08.entity.CustomerInfo;
 import java.util.List;
 
 /**
- * TODO
+ * T客户管理service层
  *
  * @param
- * @author wair0
+ * @author LiWei
  * @return
  * @date 2019-05-03 14:07
  **/
-
 @SuppressWarnings("ALL")
 public interface CustomerInfoService {
-
+    /**
+     * 通过id删除单个客户信息
+     *
+     * @param customerId 客户编号
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     int deleteByPrimaryKey(Integer customerId);
 
+    /**
+     * 添加实体信息
+     *
+     * @param record 客户实体
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     int insert(CustomerInfo record);
 
+    /**
+     * 添加实体信息
+     *
+     * @param record 客户实体
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     int insertSelective(CustomerInfo record);
 
+    /**
+     * 通过客户主键id进行查找单条实体数据
+     *
+     * @param customerId 客户id
+     * @param
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     CustomerInfo selectByPrimaryKey(Integer customerId);
 
+    /**
+     * 修改客户数据
+     *
+     * @param record 客户实体信息
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     int updateByPrimaryKeySelective(CustomerInfo record);
 
+    /**
+     * 修改客户数据
+     *
+     * @param record 客户实体信息
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     int updateByPrimaryKey(CustomerInfo record);
 
+    /**
+     * 通过类型来查找所有的客户信息
+     *
+     * @param flag 参数类型
+     * @return
+     * @author Li Wei
+     * @date 2019-06-20 17:34
+     **/
     List<CustomerInfo> listAllCustomerInfo(int flag);
 
     /**
@@ -42,11 +97,10 @@ public interface CustomerInfoService {
 
 
     /**
-     *
      * 查询行数-->用来判断是否存在此客户
      *
-     * @return java.lang.Integer
      * @param customerInfo 客户实体信息
+     * @return java.lang.Integer
      * @author admin
      * @date 2019-03-29 14:42
      **/

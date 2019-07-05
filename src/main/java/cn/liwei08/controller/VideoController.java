@@ -5,8 +5,7 @@ import cn.liwei08.server.VideoApiService;
 import cn.liwei08.util.HttpClientUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +18,10 @@ import java.util.List;
  * @date: 2019-05-04 22:53
  * Version : 1.0
  **/
-
+@Slf4j
 @RestController
 @RequestMapping("/video")
 public class VideoController {
-
-    private Logger log = LoggerFactory.getLogger(ApiController.class);
 
     private final
     VideoApiService videoApiService;
@@ -62,6 +59,7 @@ public class VideoController {
         final String baseUrl = "https://coding.net/u/Gold2River/p/NetRaw/git/raw/master/videoRule_541.json";
         String jsonListAllFreeUrl;
         jsonListAllFreeUrl = HttpClientUtil.doGet(baseUrl);
+        log.info(jsonListAllFreeUrl);
         return jsonListAllFreeUrl;
     }
 }

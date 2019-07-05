@@ -1,12 +1,13 @@
 package cn.liwei08.util;
 
-import java.io.File;
-import java.util.*;
-
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @className : GeneratorSqlmap
@@ -17,8 +18,8 @@ import org.mybatis.generator.internal.DefaultShellCallback;
  **/
 public class GeneratorSqlmap {
 
-    public void generator() throws Exception {
-        List<String> warnings = new ArrayList<String>();
+    private static void generator() throws Exception {
+        List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
         // 指定配置文件
         File configFile = new File("D:/workspace/idea/manger - 3/src/main/resources/GeneratorMapper.xml");
@@ -41,8 +42,7 @@ public class GeneratorSqlmap {
 
     public static void main(String[] args) {
         try {
-            GeneratorSqlmap generatorSqlmap = new GeneratorSqlmap();
-            generatorSqlmap.generator();
+            generator();
         } catch (Exception e) {
             e.printStackTrace();
         }

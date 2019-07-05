@@ -6,11 +6,9 @@ import cn.liwei08.util.JsonUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -23,19 +21,10 @@ import java.util.List;
  * Version : 1.0
  **/
 @RestController
+@Slf4j
 public class CustomerInfoController {
-
-
-    private Logger log = LoggerFactory.getLogger(CustomerInfoController.class);
-    /**
-     * service层方法
-     */
-    private final
+    @Autowired
     CustomerInfoService customerInfoService;
-
-    public CustomerInfoController(CustomerInfoService customerInfoService) {
-        this.customerInfoService = customerInfoService;
-    }
 
     /**
      * 查所有列表
@@ -45,7 +34,7 @@ public class CustomerInfoController {
      * @author wair0
      * @date 2019-05-04 00:07
      **/
-    @RequestMapping("/listAllCustomer")
+    @GetMapping("/listAllCustomer")
     public @ResponseBody
     String listAllCustomer(Integer flag) {
         if (flag == null) {
@@ -67,7 +56,7 @@ public class CustomerInfoController {
      * @author admin
      * @date 2019-01-23 20:30
      **/
-    @RequestMapping("/updateCustomer")
+    @PostMapping("/updateCustomer")
     public void updateHospital(CustomerInfo customerInfo) {
         customerInfoService.updateCustomer(customerInfo);
     }
@@ -80,7 +69,7 @@ public class CustomerInfoController {
      * @author admin
      * @date 2019-04-03 16:13
      **/
-    @RequestMapping("addCustomerInfo")
+    @PostMapping("addCustomerInfo")
     public void addCustomerInfo(HttpServletResponse response, CustomerInfo customerInfo) {
         customerInfoService.addCustomer(customerInfo);
         JSONObject object = new JSONObject();
@@ -96,7 +85,7 @@ public class CustomerInfoController {
      * @author admin
      * @date 2019-04-03 16:13
      **/
-    @RequestMapping("checkCustomer")
+    @GetMapping("checkCustomer")
     public void checkCustomer(HttpServletResponse response, CustomerInfo customerInfo) {
         JSONObject checkCustomerMsg = new JSONObject();
         if (customerInfo.getCustomerName().isEmpty()) {

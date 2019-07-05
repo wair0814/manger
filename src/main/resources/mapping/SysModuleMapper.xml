@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.liwei08.mapper.SysModuleMapper">
+  <resultMap id="BaseResultMap" type="cn.liwei08.entity.SysModule">
+    <id column="module_no" jdbcType="INTEGER" property="moduleNo" />
+    <result column="module_father_no" jdbcType="INTEGER" property="moduleFatherNo" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="module_path" jdbcType="VARCHAR" property="modulePath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    module_no, module_father_no, module_name, module_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from  manger.sys_module
+    where module_no = #{moduleNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from  manger.sys_module
+    where module_no = #{moduleNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.liwei08.entity.SysModule">
+    insert into  manger.sys_module (module_no, module_father_no, module_name,
+      module_path)
+    values (#{moduleNo,jdbcType=INTEGER}, #{moduleFatherNo,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, 
+      #{modulePath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.liwei08.entity.SysModule">
+    insert into  manger.sys_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleNo != null">
+        module_no,
+      </if>
+      <if test="moduleFatherNo != null">
+        module_father_no,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="modulePath != null">
+        module_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleNo != null">
+        #{moduleNo,jdbcType=INTEGER},
+      </if>
+      <if test="moduleFatherNo != null">
+        #{moduleFatherNo,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        #{modulePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.liwei08.entity.SysModule">
+    update  manger.sys_module
+    <set>
+      <if test="moduleFatherNo != null">
+        module_father_no = #{moduleFatherNo,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="modulePath != null">
+        module_path = #{modulePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where module_no = #{moduleNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.liwei08.entity.SysModule">
+    update  manger.sys_module
+    set module_father_no = #{moduleFatherNo,jdbcType=INTEGER},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      module_path = #{modulePath,jdbcType=VARCHAR}
+    where module_no = #{moduleNo,jdbcType=INTEGER}
+  </update>
+</mapper>

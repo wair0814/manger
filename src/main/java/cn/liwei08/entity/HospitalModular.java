@@ -1,5 +1,8 @@
 package cn.liwei08.entity;
 
+import lombok.Data;
+
+@Data
 public class HospitalModular {
     private Integer modularId;
 
@@ -7,27 +10,5 @@ public class HospitalModular {
 
     private Integer modularTypeNo;
 
-    public Integer getModularId() {
-        return modularId;
-    }
 
-    public void setModularId(Integer modularId) {
-        this.modularId = modularId;
-    }
-
-    public String getModularName() {
-        return modularName;
-    }
-
-    public void setModularName(String modularName) {
-        this.modularName = modularName;
-    }
-
-    public Integer getModularTypeNo() {
-        return modularTypeNo;
-    }
-
-    public void setModularTypeNo(Integer modularTypeNo) {
-        this.modularTypeNo = modularTypeNo;
-    }
 }

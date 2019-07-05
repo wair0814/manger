@@ -1,6 +1,7 @@
 package cn.liwei08.mapper;
 
 import cn.liwei08.entity.VideoApi;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 /**
@@ -10,6 +11,7 @@ import java.util.List;
  * @date: 2019-03-11 09:11
  * Version : 1.0
  **/
+@Repository
 public interface VideoApiMapper {
     int deleteByPrimaryKey(Integer apiId);
 

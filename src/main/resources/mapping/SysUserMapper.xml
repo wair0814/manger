@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.liwei08.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="cn.liwei08.entity.SysUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_RealName" jdbcType="VARCHAR" property="userRealname"/>
+        <result column="user_sex" jdbcType="VARCHAR" property="userSex"/>
+        <result column="user_age" jdbcType="INTEGER" property="userAge"/>
+        <result column="user_cpwd" jdbcType="VARCHAR" property="userCpwd"/>
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
+        <result column="user_stopMark" jdbcType="INTEGER" property="userStopmark"/>
+        <result column="user_qq" jdbcType="VARCHAR" property="userQq"/>
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="user_ip" jdbcType="VARCHAR" property="userIp"/>
+        <result column="user_createtime" jdbcType="TIMESTAMP" property="userCreatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, user_name, user_RealName, user_sex, user_age, user_cpwd, user_email, user_code,
+    user_stopMark, user_qq, user_phone, user_ip, user_createtime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from  manger.sys_user
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from  manger.sys_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="cn.liwei08.entity.SysUser">
+    insert into  manger.sys_user (user_id, user_name, user_RealName,
+      user_sex, user_age, user_cpwd,
+      user_email, user_code, user_stopMark,
+      user_qq, user_phone, user_ip,
+      user_createtime)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userRealname,jdbcType=VARCHAR},
+      #{userSex,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER}, #{userCpwd,jdbcType=VARCHAR},
+      #{userEmail,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userStopmark,jdbcType=INTEGER},
+      #{userQq,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userIp,jdbcType=VARCHAR},
+      #{userCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.liwei08.entity.SysUser">
+        insert into  manger.sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userRealname != null">
+                user_RealName,
+            </if>
+            <if test="userSex != null">
+                user_sex,
+            </if>
+            <if test="userAge != null">
+                user_age,
+            </if>
+            <if test="userCpwd != null">
+                user_cpwd,
+            </if>
+            <if test="userEmail != null">
+                user_email,
+            </if>
+            <if test="userCode != null">
+                user_code,
+            </if>
+            <if test="userStopmark != null">
+                user_stopMark,
+            </if>
+            <if test="userQq != null">
+                user_qq,
+            </if>
+            <if test="userPhone != null">
+                user_phone,
+            </if>
+            <if test="userIp != null">
+                user_ip,
+            </if>
+            <if test="userCreatetime != null">
+                user_createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealname != null">
+                #{userRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                #{userSex,jdbcType=VARCHAR},
+            </if>
+            <if test="userAge != null">
+                #{userAge,jdbcType=INTEGER},
+            </if>
+            <if test="userCpwd != null">
+                #{userCpwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userStopmark != null">
+                #{userStopmark,jdbcType=INTEGER},
+            </if>
+            <if test="userQq != null">
+                #{userQq,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userIp != null">
+                #{userIp,jdbcType=VARCHAR},
+            </if>
+            <if test="userCreatetime != null">
+                #{userCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.liwei08.entity.SysUser">
+        update  manger.sys_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealname != null">
+                user_RealName = #{userRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null">
+                user_sex = #{userSex,jdbcType=VARCHAR},
+            </if>
+            <if test="userAge != null">
+                user_age = #{userAge,jdbcType=INTEGER},
+            </if>
+            <if test="userCpwd != null">
+                user_cpwd = #{userCpwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null">
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userStopmark != null">
+                user_stopMark = #{userStopmark,jdbcType=INTEGER},
+            </if>
+            <if test="userQq != null">
+                user_qq = #{userQq,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                user_phone = #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userIp != null">
+                user_ip = #{userIp,jdbcType=VARCHAR},
+            </if>
+            <if test="userCreatetime != null">
+                user_createtime = #{userCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.liwei08.entity.SysUser">
+    update  manger.sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_RealName = #{userRealname,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_cpwd = #{userCpwd,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      user_stopMark = #{userStopmark,jdbcType=INTEGER},
+      user_qq = #{userQq,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      user_createtime = #{userCreatetime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

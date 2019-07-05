@@ -17,7 +17,6 @@ import java.util.List;
  * Version : 1.0
  **/
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class VideoApiServiceImpl implements VideoApiService {
     @Autowired
     private VideoApiMapper videoApiMapper;
@@ -29,16 +28,19 @@ public class VideoApiServiceImpl implements VideoApiService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteByPrimaryKey(Integer apiId) {
         return 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insert(VideoApi record) {
         return 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(VideoApi record) {
         return 0;
     }
@@ -49,11 +51,13 @@ public class VideoApiServiceImpl implements VideoApiService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(VideoApi record) {
         return 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateByPrimaryKey(VideoApi record) {
         return 0;
     }
