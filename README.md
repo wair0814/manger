@@ -1,2 +1,2 @@
 # manger
-入门测试
+**技术：Springboot+Mybatis+Mysql+Shiro**
