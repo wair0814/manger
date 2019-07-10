@@ -1,7 +1,7 @@
 package cn.liwei08.mapper;
 
 import cn.liwei08.entity.CustomerInfo;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,35 +15,6 @@ import java.util.List;
  **/
 @Repository
 public interface CustomerInfoMapper {
-    /**
-     * 通过ID删除一条数据
-     *
-     * @param customerId -- 客户id
-     * @return int
-     * @author Li Wei
-     * @date 2019-05-05 11:32
-     **/
-    int deleteByPrimaryKey(Integer customerId);
-
-    /**
-     * 添加客户信息
-     *
-     * @param record 客户实体信息
-     * @return int
-     * @author Li Wei
-     * @date 2019-05-05 11:33
-     **/
-    int insert(CustomerInfo record);
-
-    /**
-     * 插入已选择的实体信息
-     *
-     * @param record 实体
-     * @return int
-     * @author Li Wei
-     * @date 2019-05-05 11:34
-     **/
-    int insertSelective(CustomerInfo record);
 
     /**
      * TODO
@@ -55,56 +26,52 @@ public interface CustomerInfoMapper {
      **/
     CustomerInfo selectByPrimaryKey(Integer customerId);
 
-    /**
-     * TODO
-     *
-     * @param record
-     * @return
-     * @author Li Wei
-     * @date 2019-05-05 11:34
-     **/
-    int updateByPrimaryKeySelective(CustomerInfo record);
-
-    /**
-     * TODO
-     *
-     * @param record
-     * @return
-     * @author Li Wei
-     * @date 2019-05-05 11:34
-     **/
-    int updateByPrimaryKey(CustomerInfo record);
 
     /**
      * 查询客户列表
      *
-     * @param flag 参数 0启用 1停用 2查所有
      * @return 返回集合哦
      * @author wair0
      * @date 2019-05-03 14:33
      **/
-    List<CustomerInfo> listAllCustomerInfo(@Param(value = "flag") int flag);
+    @Select({"SELECT customer_id, customer_name, customer_stopMark, customer_createTime FROM customer_info"})
+    @Results({
+            @Result(column = "customer_id", property = "customerId", id = true),
+            @Result(column = "customer_name", property = "customerName"),
+            @Result(column = "customer_stopMark", property = "customerStopMark"),
+            @Result(column = "customer_createTime", property = "customerCreateTime")
+    })
+    List<CustomerInfo> listAllCustomerInfo();
+
+    /**
+     * 查询客户列表
+     *
+     * @param type 参数 0启用 1停用 2查所有
+     * @return 返回集合哦
+     * @author wair0
+     * @date 2019-05-03 14:33
+     **/
+    @Select({"SELECT customer_id, customer_name, customer_stopMark, customer_createTime FROM customer_info  where customer_stopMark = #{type} and 1=1 "})
+    @Results({
+            @Result(column = "customer_id", property = "customerId", id = true),
+            @Result(column = "customer_name", property = "customerName"),
+            @Result(column = "customer_stopMark", property = "customerStopMark"),
+            @Result(column = "customer_createTime", property = "customerCreateTime")
+    })
+    List<CustomerInfo> listAllCustomerInfoByType(@Param(value = "type") Integer type);
 
     /**
      * 查询数据行数
      *
-     * @param flag 参数（用来判断是查所有信息还是查停用的、再用的医院信息列表）
+     * @param type 参数（用来判断是查所有信息还是查停用的、再用的医院信息列表）
      * @return java.lang.Integer 返回数据行数
      * @author admin
      * @date 2019-01-25 16:35
      **/
+    @Select({"SELECT count(customer_id) FROM customer_info  WHERE customer_stopMark = #{type} AND 1=1 "})
+    @Results({@Result(column = "customer_id", property = "customerId", id = true)})
+    Integer countCustomer(@Param(value = "type") Integer type);
 
-    Integer countCustomer(@Param(value = "flag") Integer flag);
-
-    /**
-     * 添加医院名称
-     *
-     * @param customerInfo 医院实体
-     * @return CustomerInfo
-     * @author LiWei
-     * @date 2018-12-24 17:41
-     **/
-    void addCustomer(CustomerInfo customerInfo);
 
     /**
      * 修改医院信息列表
@@ -114,6 +81,7 @@ public interface CustomerInfoMapper {
      * @author LiWei
      * @date 2018-12-24 17:41
      **/
+    @Update({"UPDATE customer_info SET customer_name = #{customerName},customer_stopMark = #{customerStopMark} WHERE customer_id=#{customerId}"})
     void updateCustomer(CustomerInfo customerInfo);
 
 
@@ -121,7 +89,6 @@ public interface CustomerInfoMapper {
      * 删除医院信息
      *
      * @param customerId 医院编号
-     * @return
      * @author LiWei
      * @date 2018-12-24 17:42
      **/
@@ -135,7 +102,14 @@ public interface CustomerInfoMapper {
      * @author LiWei
      * @date 2019-01-15 20:05
      **/
-    CustomerInfo findOneByCustomerId(Integer customerId);
+    @Select({"SELECT customer_id, customer_name, customer_stopMark, customer_createTime FROM customer_info where customer_id = #{customerId}"})
+    @Results({
+            @Result(column = "customer_id", property = "customerId", id = true),
+            @Result(column = "customer_name", property = "customerName"),
+            @Result(column = "customer_stopMark", property = "customerStopMark"),
+            @Result(column = "customer_createTime", property = "customerCreateTime")
+    })
+    CustomerInfo findOneByCustomerId(@Param("customerId") Integer customerId);
 
     /**
      * 通过客户名来查询数量-->用来判断客户是否存在
@@ -145,5 +119,9 @@ public interface CustomerInfoMapper {
      * @author admin
      * @date 2019-03-29 14:37
      **/
-    Integer countCustomerByName(String customerName);
+    @Select({"SELECT count(customer_id) FROM customer_info  WHERE customer_name = #{customerName}"})
+    Integer countCustomerByName(@Param("customerName") String customerName);
+
+    @Insert("INSERT INTO customer_info(customer_name,customer_stopMark) VALUES(#{customerName}, #{customerStopMark})")
+    void addCustomer(CustomerInfo CustomerInfo);
 }

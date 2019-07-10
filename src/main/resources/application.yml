@@ -9,46 +9,9 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/manger?useUnicode=true&amp;characterEncoding=UTF-8?useSSL=false
     username: root
     password: root
-    #    type: com.alibaba.druid.pool.DruidDataSource
-    #    ###数据源的其他配置
-    #    initialSize: 5
-    #    minIdle: 5
-    #    maxActive: 20
-    #    maxWait: 60000
-    #    timeBetweenEvictionRunsMillis: 60000
-    #    minEvictableIdleTimeMillis: 300000
-    #    validationQuery: SELECT 1 FROM DUAL
-    #    testWhileIdle: true
-    #    testOnBorrow: false
-    #    testOnReturn: false
-    #    poolPreparedStatements: true
-    ### 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    #    filters: stat,wall,log4j
-    #    maxPoolPreparedStatementPerConnectionSize: 20
-    #    useGlobalDataSourceStat: true
-    #    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-
-    ###################
-    # 配置日志输出
-    #    druid:
-    #      filter:
-    #        slf4j:
-    #          enabled: false
-    #          statement-create-after-log-enabled: false
-    #          statement-close-after-log-enabled: false
-    #          result-set-open-after-log-enabled: false
-    #          result-set-close-after-log-enabled: false
-
-#mybatis的xml文件配置
-mybatis:
+#mybatis的配置
+#mybatis:
   # 映射文件所在路径
-  mapper-locations: classpath:mapping/*.xml
+  #  mapper-locations: classpath:mapping/*.xml
   # pojo类所在包路径
-  type-aliases-package: cn.liwei08.entity
-# pageHelper配置
-#pagehelper:
-##  helperDialect: mysql
-##  offsetAsPageNum: true
-##  rowBoundsWithCount: true
-##  reasonable: false
-#  dialect: mysql
+#  type-aliases-package: cn.liwei08.entity

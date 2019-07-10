@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,23 +26,8 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
 
 
     @Override
-    public int deleteByPrimaryKey(Integer customerId) {
-        return customerInfoMapper.deleteByPrimaryKey(customerId);
-    }
-
-    @Override
-    public int insert(CustomerInfo record) {
-        return customerInfoMapper.insert(record);
-    }
-
-    @Override
-    public int insertSelective(CustomerInfo record) {
-        return 0;
-    }
-
-    @Override
     public CustomerInfo selectByPrimaryKey(Integer customerId) {
-        return null;
+        return customerInfoMapper.findOneByCustomerId(customerId);
     }
 
     @Override
@@ -49,6 +35,7 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
         return 0;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateByPrimaryKey(CustomerInfo record) {
         return 0;
@@ -58,21 +45,32 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
     /**
      * 查询所有的医院信息列表
      *
-     * @param flag --查询数据的标记信息
+     * @param type --查询数据的标记信息
      * @return 返回所有的信息列表
      * @author LiWei
      * @date 2018-12-24 17:40
      **/
     @Override
-    public List<CustomerInfo> listAllCustomerInfo(int flag) {
-        List<CustomerInfo> infos = customerInfoMapper.listAllCustomerInfo(flag);
-        log.info("--> Totle："+String.valueOf(infos.size()));
+    public List<CustomerInfo> listAllCustomerInfo(Integer type) {
+        /*
+         * 判断flag参数
+         */
+        List<CustomerInfo> infos = null;
+        if (type == null) {
+            infos = customerInfoMapper.listAllCustomerInfo();
+        } else if (type == 0 || type == 1) {
+            infos = customerInfoMapper.listAllCustomerInfoByType(type);
+        } else {
+            log.info("参数非法");
+        }
+        assert infos != null;
+        log.info("--> Totle：" + infos.size());
         return infos;
     }
 
     @Override
-    public Integer countCustomer(Integer flag) {
-        return customerInfoMapper.countCustomer(flag);
+    public Integer countCustomer(Integer type) {
+        return customerInfoMapper.countCustomer(type);
     }
 
     @Override
@@ -102,12 +100,8 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
     }
 
     @Override
-    public CustomerInfo findOneByCustomerId(CustomerInfo customerInfo) {
-        if (customerInfo != null) {
-            return customerInfoMapper.findOneByCustomerId(customerInfo.getCustomerId());
-        } else {
-            return null;
-        }
+    public CustomerInfo findOneByCustomerId(Integer customerId) {
+        return customerInfoMapper.findOneByCustomerId(customerId);
     }
 
 }

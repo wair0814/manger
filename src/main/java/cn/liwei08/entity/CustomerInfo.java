@@ -31,5 +31,5 @@ public class CustomerInfo {
     /**
      * 客户信息添加时间
      */
-    private Date customerCreatetime;
+    private Date customerCreateTime;
 }

@@ -25,7 +25,7 @@ public class TburlServiceImpl implements TburlService {
     @Override
     public List<TbUrl> queryTbUrl() {
         List<TbUrl> tbUrls = tbUrlMapper.queryTbUrl();
-        log.info(tbUrls.toString());
+        log.info("totleSize: " + tbUrls.size() + " data:" + tbUrls.toString());
         return tbUrls;
     }
 }

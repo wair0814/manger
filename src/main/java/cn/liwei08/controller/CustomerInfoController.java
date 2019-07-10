@@ -1,16 +1,15 @@
 package cn.liwei08.controller;
 
+import cn.liwei08.common.enums.ResultEnum;
+import cn.liwei08.common.exception.ResultException;
+import cn.liwei08.common.utils.ResultVoUtil;
+import cn.liwei08.common.vo.ResultVo;
 import cn.liwei08.entity.CustomerInfo;
 import cn.liwei08.server.CustomerInfoService;
-import cn.liwei08.util.JsonUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,6 +21,7 @@ import java.util.List;
  **/
 @RestController
 @Slf4j
+@RequestMapping("/customer")
 public class CustomerInfoController {
     @Autowired
     CustomerInfoService customerInfoService;
@@ -29,22 +29,16 @@ public class CustomerInfoController {
     /**
      * 查所有列表
      *
-     * @param flag 查询参数
+     * @param type 查询参数
      * @return java.lang.String
      * @author wair0
      * @date 2019-05-04 00:07
      **/
     @GetMapping("/listAllCustomer")
-    public @ResponseBody
-    String listAllCustomer(Integer flag) {
-        if (flag == null) {
-            return "请输入查询参数";
-        } else {
-            List<CustomerInfo> listCustomerInfos = customerInfoService.listAllCustomerInfo(flag);
-            JSONArray customerInfos = JSONArray.parseArray(JSON.toJSONString(listCustomerInfos));
-            log.info(customerInfos.toJSONString());
-            return customerInfos.toJSONString();
-        }
+    public ResultVo listAllCustomer(Integer type) {
+        List<CustomerInfo> listCustomerInfos = customerInfoService.listAllCustomerInfo(type);
+        log.info(listCustomerInfos.toString());
+        return ResultVoUtil.success(listCustomerInfos);
     }
 
 
@@ -57,45 +51,63 @@ public class CustomerInfoController {
      * @date 2019-01-23 20:30
      **/
     @PostMapping("/updateCustomer")
-    public void updateHospital(CustomerInfo customerInfo) {
-        customerInfoService.updateCustomer(customerInfo);
+    public ResultVo updateCustomer(CustomerInfo customerInfo) {
+        /*
+         * 非空判断
+         */
+        if (customerInfo.getCustomerName().isEmpty()) {
+            throw new ResultException(ResultEnum.PARAM_NULL);
+        } else {
+            customerInfoService.updateCustomer(customerInfo);
+            return ResultVoUtil.success("操作成功");
+        }
     }
 
     /**
      * 添加客户实体信息
      *
-     * @param response, customerInfo 客户实体对象
+     * @param customerInfo 客户实体对象
      * @return void
      * @author admin
      * @date 2019-04-03 16:13
      **/
     @PostMapping("addCustomerInfo")
-    public void addCustomerInfo(HttpServletResponse response, CustomerInfo customerInfo) {
-        customerInfoService.addCustomer(customerInfo);
-        JSONObject object = new JSONObject();
-        object.put("state", "200");
-        JsonUtil.outJsonString(response, object.toString());
+    public ResultVo addCustomerInfo(CustomerInfo customerInfo) {
+        if (customerInfo.getCustomerName().isEmpty()) {
+            throw new ResultException(ResultEnum.PARAM_NULL);
+        } else {
+            customerInfoService.addCustomer(customerInfo);
+            return ResultVoUtil.success("操作成功");
+        }
     }
 
     /**
      * 检查是否存在相同名字的客户
      *
-     * @param response 发送, customerInfo 客户实体对象
+     * @param customerInfo 客户实体对象
      * @return void
      * @author admin
      * @date 2019-04-03 16:13
      **/
     @GetMapping("checkCustomer")
-    public void checkCustomer(HttpServletResponse response, CustomerInfo customerInfo) {
-        JSONObject checkCustomerMsg = new JSONObject();
+    public ResultVo checkCustomer(CustomerInfo customerInfo) {
         if (customerInfo.getCustomerName().isEmpty()) {
-            checkCustomerMsg.put("msg_checkCustomer", "404");
+            throw new ResultException(ResultEnum.PARAM_NULL);
         } else {
             // 获得行数
             Integer countCustomer = customerInfoService.countCustomerByName(customerInfo);
-            checkCustomerMsg.put("msg_checkCustomer", countCustomer);
+            return ResultVoUtil.success(countCustomer);
         }
-        log.debug(checkCustomerMsg.toString());
-        JsonUtil.outJsonString(response, checkCustomerMsg.toString());
+    }
+
+    @RequestMapping("findOneByCustomerId")
+    public ResultVo findOneByCustomerId(Integer id) {
+        if (id == null) {
+            log.warn("id为空");
+            throw new ResultException(ResultEnum.PARAM_NULL);
+        } else {
+            CustomerInfo customerInfo = customerInfoService.findOneByCustomerId(id);
+            return ResultVoUtil.success(customerInfo);
+        }
     }
 }

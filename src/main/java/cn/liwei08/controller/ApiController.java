@@ -1,11 +1,11 @@
 package cn.liwei08.controller;
 
-import cn.liwei08.server.TburlService;
 import cn.liwei08.util.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,9 @@ import java.util.Map;
  * @date 2019-05-02 17:00
  **/
 @Slf4j
-@RequestMapping("/API")
+@RequestMapping("/api")
 @RestController
 public class ApiController {
-
-    @Autowired
-    TburlService tburlService;
-
-
     /**
      * Cat，即类型。提交不同的参数代表不同的类别，具体： a Anime - 动画 b Comic – 漫画 c Game – 游戏 d Novel – 小说
      * e Myself – 原创 f Internet – 来自网络 g Other – 其他
@@ -33,8 +28,7 @@ public class ApiController {
      * @return 返回json字符串
      */
     @RequestMapping("/yiYan")
-    public @ResponseBody
-    String yiYan(String type) {
+    public String yiYan(String type) {
         final String yiyanHost = "https://v1.hitokoto.cn";
         String yiYanJson;
         Map<String, String> map = new HashMap<>(16);
@@ -56,8 +50,7 @@ public class ApiController {
      * @Date 2018-12-11 21:11
      **/
     @PostMapping(value = "/weather")
-    public @ResponseBody
-    String getWeatherByXinZhiWeather(String ip) {
+    public String getWeatherByXinZhiWeather(String ip) {
         log.info("getWeatherByXinZhiWeather 用户的ip地址为 ==>" + ip);
         final String ipCheck = "\\d+\\.\\d+\\.\\d+\\.\\d+";
 
@@ -85,9 +78,6 @@ public class ApiController {
         }
     }
 
-    @GetMapping("queryTbUrl")
-    public String queryTbUrl() {
-        return tburlService.queryTbUrl().toString();
-    }
+
 
 }

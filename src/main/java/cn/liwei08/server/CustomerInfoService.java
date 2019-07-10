@@ -14,35 +14,7 @@ import java.util.List;
  **/
 @SuppressWarnings("ALL")
 public interface CustomerInfoService {
-    /**
-     * 通过id删除单个客户信息
-     *
-     * @param customerId 客户编号
-     * @return
-     * @author Li Wei
-     * @date 2019-06-20 17:34
-     **/
-    int deleteByPrimaryKey(Integer customerId);
 
-    /**
-     * 添加实体信息
-     *
-     * @param record 客户实体
-     * @return
-     * @author Li Wei
-     * @date 2019-06-20 17:34
-     **/
-    int insert(CustomerInfo record);
-
-    /**
-     * 添加实体信息
-     *
-     * @param record 客户实体
-     * @return
-     * @author Li Wei
-     * @date 2019-06-20 17:34
-     **/
-    int insertSelective(CustomerInfo record);
 
     /**
      * 通过客户主键id进行查找单条实体数据
@@ -83,7 +55,7 @@ public interface CustomerInfoService {
      * @author Li Wei
      * @date 2019-06-20 17:34
      **/
-    List<CustomerInfo> listAllCustomerInfo(int flag);
+    List<CustomerInfo> listAllCustomerInfo(Integer  type);
 
     /**
      * 通过flag参数来查询数据行数
@@ -93,7 +65,7 @@ public interface CustomerInfoService {
      * @author admin
      * @date 2019-01-25 16:39
      **/
-    Integer countCustomer(Integer flag);
+    Integer countCustomer(Integer type);
 
 
     /**
@@ -126,7 +98,6 @@ public interface CustomerInfoService {
      * @date 2018-12-24 17:41
      **/
     void updateCustomer(CustomerInfo customerInfo);
-    // , Integer hospitalId
 
     /**
      * 删除医院信息
@@ -147,6 +118,6 @@ public interface CustomerInfoService {
      * @author LiWei
      * @date 2019-01-15 20:05
      **/
-    CustomerInfo findOneByCustomerId(CustomerInfo customerInfo);
+    CustomerInfo findOneByCustomerId(Integer customerId);
 
 }

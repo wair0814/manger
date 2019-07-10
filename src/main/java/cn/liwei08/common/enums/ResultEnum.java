@@ -57,7 +57,11 @@ public enum ResultEnum implements ResultInterface {
     NO_ADMINROLE_AUTH(500, "不允许操作管理员角色"),
     NO_ADMINROLE_STATUS(501, "不能修改管理员角色状态"),
 
-    ;
+
+    /**
+     * 参数非法
+     */
+    PARAM_NULL(401, "参数不能为空");
 
     private Integer code;
 
