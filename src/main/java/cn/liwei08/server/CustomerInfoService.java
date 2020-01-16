@@ -15,7 +15,6 @@ import java.util.List;
 @SuppressWarnings("ALL")
 public interface CustomerInfoService {
 
-
     /**
      * 通过客户主键id进行查找单条实体数据
      *
