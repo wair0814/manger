@@ -12,7 +12,7 @@ import java.util.List;
  * @return
  * @date 2019-05-03 14:07
  **/
-@SuppressWarnings("ALL")
+
 public interface CustomerInfoService {
 
     /**
